@@ -1,57 +1,23 @@
 .app {
-  position: relative;
   width: 100%;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   overflow: hidden;
 }
 
-.name-container {
-  text-align: center;
-  z-index: 10;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.name-container.animate {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.name {
-  font-size: clamp(3rem, 8vw, 8rem);
-  font-weight: 700;
-  color: white;
-  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  margin-bottom: 1rem;
-  letter-spacing: -0.02em;
-  background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.subtitle {
-  font-size: clamp(1rem, 3vw, 1.5rem);
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.decorative-elements {
+.background-shapes {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
+  z-index: 1;
 }
 
-.circle {
+.shape {
   position: absolute;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
@@ -59,7 +25,7 @@
   animation: float 6s ease-in-out infinite;
 }
 
-.circle-1 {
+.shape-1 {
   width: 200px;
   height: 200px;
   top: 10%;
@@ -67,7 +33,7 @@
   animation-delay: 0s;
 }
 
-.circle-2 {
+.shape-2 {
   width: 150px;
   height: 150px;
   top: 60%;
@@ -75,12 +41,20 @@
   animation-delay: 2s;
 }
 
-.circle-3 {
+.shape-3 {
   width: 100px;
   height: 100px;
   bottom: 20%;
   left: 20%;
   animation-delay: 4s;
+}
+
+.shape-4 {
+  width: 120px;
+  height: 120px;
+  top: 30%;
+  right: 40%;
+  animation-delay: 1s;
 }
 
 @keyframes float {
@@ -92,27 +66,191 @@
   }
 }
 
+.container {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+}
+
+.text-display {
+  position: relative;
+  opacity: 0;
+  transform: translateY(50px) scale(0.8);
+  transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.text-display.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.main-text {
+  font-size: clamp(4rem, 12vw, 8rem);
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 
+    0 0 20px rgba(255, 255, 255, 0.5),
+    0 0 40px rgba(255, 255, 255, 0.3),
+    0 0 60px rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.1em;
+  margin: 0;
+  position: relative;
+  z-index: 3;
+  background: linear-gradient(45deg, #ffffff, #f0f0f0, #ffffff);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.text-shadow {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: clamp(4rem, 12vw, 8rem);
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.1em;
+  z-index: 1;
+  -webkit-text-fill-color: rgba(0, 0, 0, 0.3);
+}
+
+.glow-effect {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: 2;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.subtitle {
+  margin-top: 2rem;
+  opacity: 0;
+  animation: fadeInUp 1s ease-out 1.5s forwards;
+}
+
+.subtitle p {
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.05em;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.floating-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: particleFloat 8s linear infinite;
+}
+
+.particle:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.4);
+  animation-duration: 12s;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.particle-1 { left: 10%; animation-delay: 0s; }
+.particle-2 { left: 20%; animation-delay: 1s; }
+.particle-3 { left: 30%; animation-delay: 2s; }
+.particle-4 { left: 40%; animation-delay: 3s; }
+.particle-5 { left: 50%; animation-delay: 4s; }
+.particle-6 { left: 60%; animation-delay: 5s; }
+.particle-7 { left: 70%; animation-delay: 6s; }
+.particle-8 { left: 80%; animation-delay: 7s; }
+.particle-9 { left: 90%; animation-delay: 8s; }
+.particle-10 { left: 15%; animation-delay: 9s; }
+.particle-11 { left: 25%; animation-delay: 10s; }
+.particle-12 { left: 35%; animation-delay: 11s; }
+.particle-13 { left: 45%; animation-delay: 12s; }
+.particle-14 { left: 55%; animation-delay: 13s; }
+.particle-15 { left: 65%; animation-delay: 14s; }
+.particle-16 { left: 75%; animation-delay: 15s; }
+.particle-17 { left: 85%; animation-delay: 16s; }
+.particle-18 { left: 95%; animation-delay: 17s; }
+.particle-19 { left: 5%; animation-delay: 18s; }
+.particle-20 { left: 95%; animation-delay: 19s; }
+
 @media (max-width: 768px) {
-  .name {
-    font-size: clamp(2.5rem, 12vw, 6rem);
+  .main-text {
+    font-size: clamp(3rem, 15vw, 6rem);
   }
   
-  .subtitle {
-    font-size: clamp(0.8rem, 4vw, 1.2rem);
+  .text-shadow {
+    font-size: clamp(3rem, 15vw, 6rem);
+    top: 4px;
+    left: 4px;
   }
   
-  .circle-1 {
-    width: 120px;
-    height: 120px;
+  .subtitle p {
+    font-size: 1rem;
   }
   
-  .circle-2 {
-    width: 80px;
-    height: 80px;
-  }
-  
-  .circle-3 {
-    width: 60px;
-    height: 60px;
+  .shape {
+    opacity: 0.5;
   }
 }
